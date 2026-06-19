@@ -17,7 +17,7 @@ DASHBOARD = BUILD_DIR / "dashboard.html"
 FILM_DASHBOARD = BUILD_DIR / "film.html"
 
 
-class ReusableTcpServer(socketserver.TCPServer):
+class ReusableTcpServer(socketserver.ThreadingTCPServer):
     allow_reuse_address = True
 
 

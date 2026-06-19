@@ -12,7 +12,7 @@
 
 - Vernier Go Direct Python guide: https://vernierst.github.io/godirect-examples/python/
 - Vernier `godirect-py`: https://github.com/VernierST/godirect-py
-- Hardware sanity check: `python3 tools/check_vernier.py`
+- Hardware sanity check: `python3 tools/check_hardware.py`
 
 ## What Already Exists
 
@@ -41,4 +41,4 @@ http://127.0.0.1:8787/film.html
 
 Connect the Vernier belt through `godirect-py`, make it emit the same fields as `src/sensors/simulator.py`, and keep all real recordings/transcripts/sensor exports local and ignored.
 
-More context: [grant packet](docs/grant-packet.md), [privacy](docs/privacy.md), [research plan](docs/research-plan.md), [grant notes](docs/grant-relevant-ideas.md).
+More context: [grant packet](docs/grant-packet.md), [hardware strategy](docs/hardware-signal-strategy.md), [privacy](docs/privacy.md), [research plan](docs/research-plan.md), [grant notes](docs/grant-relevant-ideas.md).

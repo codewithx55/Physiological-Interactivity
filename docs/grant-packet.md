@@ -5,6 +5,7 @@
 - GitHub: https://github.com/codewithx55/Physiological-Interactivity
 - Local film demo: `python3 -m src.app --mode simulator --film`
 - Local eval: `python3 tools/export_eval_report.py`
+- Local video viewer: `python3 tools/build_demo_viewer.py`, then open `build/demo-viewer.html`
 
 ## Two-Sentence Demo Summary
 
@@ -49,3 +50,12 @@ The public repo contains synthetic data only. Real recordings, transcripts, brea
 ## Next Milestone
 
 Connect the Vernier Go Direct Respiration Belt through `godirect-py`, map raw samples into the existing mock stream shape, and rerun the same UI/eval with live respiration data.
+
+## AI-Native Operating Mode
+
+Frequency Labs should use agents as the default research and engineering loop:
+
+- Agents maintain public demo code, private run notes, eval outputs, screenshots, and video artifacts.
+- Every useful artifact should have a runnable command and a visible proof path.
+- Subagents can split focused work: UI QA, hardware SDK scouting, eval design, and grant copy review.
+- Generated demos stay local unless intentionally published; private recordings and biosignals never enter git.

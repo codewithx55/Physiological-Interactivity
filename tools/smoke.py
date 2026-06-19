@@ -22,6 +22,7 @@ def main() -> int:
     checks = [
         [sys.executable, "-m", "src.turn_taking.evaluator"],
         [sys.executable, "tools/export_eval_report.py", "--json"],
+        [sys.executable, "tools/build_demo_viewer.py"],
         [sys.executable, "-m", "src.app", "--mode", "simulator", "--once"],
         [sys.executable, "-m", "src.app", "--mode", "simulator", "--film", "--once"],
     ]
