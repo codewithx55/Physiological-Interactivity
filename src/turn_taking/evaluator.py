@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from dataclasses import asdict
 
 from src.features.physiology_features import extract_turn_features
 from src.sensors.simulator import Scenario, TimelineEvent, load_scenarios
@@ -107,6 +108,28 @@ def _metrics_for(policy_name: str, rows: list[EvaluatedEvent]) -> PolicyMetrics:
 def evaluate() -> tuple[list[EvaluatedEvent], list[PolicyMetrics]]:
     rows = evaluate_events()
     return rows, [_metrics_for("baseline", rows), _metrics_for("physiology", rows)]
+
+
+def evaluation_payload() -> dict[str, object]:
+    rows, metrics = evaluate()
+    return {
+        "metrics": [asdict(metric) for metric in metrics],
+        "key_events": [
+            {
+                "scenario_id": row.scenario_id,
+                "scenario_title": row.scenario_title,
+                "at_ms": row.event.at_ms,
+                "truth": row.event.ground_truth,
+                "breath_phase": row.event.breath_phase,
+                "silence_ms": row.event.silence_ms,
+                "baseline_action": row.baseline.action,
+                "physiology_action": row.physiology.action,
+                "physiology_probability": row.physiology.end_of_turn_probability,
+            }
+            for row in rows
+            if not row.event.speech_active
+        ],
+    }
 
 
 def print_report() -> None:

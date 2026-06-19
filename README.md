@@ -41,4 +41,4 @@ http://127.0.0.1:8787/film.html
 
 Connect the Vernier belt through `godirect-py`, make it emit the same fields as `src/sensors/simulator.py`, and keep all real recordings/transcripts/sensor exports local and ignored.
 
-More context: [privacy](docs/privacy.md), [research plan](docs/research-plan.md), [grant notes](docs/grant-relevant-ideas.md).
+More context: [grant packet](docs/grant-packet.md), [privacy](docs/privacy.md), [research plan](docs/research-plan.md), [grant notes](docs/grant-relevant-ideas.md).
