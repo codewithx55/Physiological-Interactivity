@@ -22,6 +22,7 @@ def main() -> int:
     checks = [
         [sys.executable, "-m", "src.turn_taking.evaluator"],
         [sys.executable, "-m", "src.app", "--mode", "simulator", "--once"],
+        [sys.executable, "-m", "src.app", "--mode", "simulator", "--film", "--once"],
     ]
     for check in checks:
         code = run(check)

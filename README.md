@@ -12,6 +12,7 @@
 
 - Vernier Go Direct Python guide: https://vernierst.github.io/godirect-examples/python/
 - Vernier `godirect-py`: https://github.com/VernierST/godirect-py
+- Hardware sanity check: `python3 tools/check_vernier.py`
 
 ## What Already Exists
 
@@ -21,13 +22,19 @@ Run it:
 
 ```bash
 python3 tools/smoke.py
-python3 -m src.app --mode simulator
+python3 -m src.app --mode simulator --film
 ```
 
 Then open:
 
 ```txt
 http://127.0.0.1:8787/dashboard.html
+```
+
+For the film UI, open:
+
+```txt
+http://127.0.0.1:8787/film.html
 ```
 
 ## How I Think You Should Move Forward
