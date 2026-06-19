@@ -1,0 +1,69 @@
+# Secrets and local config
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+*.mobileprovision
+
+# Private human data: never commit real capture or biometric artifacts
+data/
+private/
+local/
+.local/
+captures/
+recordings/
+transcripts/
+exports/
+sensor_exports/
+biometrics/
+profiles/
+*.wav
+*.mp3
+*.m4a
+*.aac
+*.flac
+*.mp4
+*.mov
+*.webm
+*.sqlite
+*.sqlite3
+*.db
+*.csv
+*.tsv
+*.jsonl
+transcript*.md
+recording*.*
+
+# Generated demo artifacts
+build/
+dist/
+out/
+reports/
+screenshots/private/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# JavaScript, if added later
+node_modules/
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+
+# OS/editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
