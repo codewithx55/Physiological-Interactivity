@@ -6,6 +6,8 @@ This repo is the tiny demo for Frequency Labs' Thinking Machines grant idea:
 
 It is not a medical app, wellness app, emotion detector, or hidden recording system. Everything runs locally with synthetic data unless we explicitly connect hardware later.
 
+The contribution is a testable interaction hypothesis: real-time AI systems can make better turn-taking decisions when they model human physiological timing in addition to speech silence and language.
+
 ## What You Can Run
 
 ```bash
@@ -36,6 +38,15 @@ listen / wait / respond / ask a short clarifying question
 
 The research question is whether physiological and prosodic cues improve turn timing in collaborative spoken AI.
 
+In grant language: this is **physiology-aware turn-taking for real-time human-AI interaction**. The benchmark compares baseline VAD endpointing against a richer policy that uses respiration, cadence, pause shape, and optional biosignals.
+
+## Kenny's First Pass
+
+1. Run the smoke command.
+2. Open the dashboard.
+3. Look at the "Short thinking pause" row where baseline says `RESPOND` and physiology says `WAIT`.
+4. That is the whole wedge: the assistant should not talk just because the audio got quiet.
+
 ## Privacy Defaults
 
 - Commit only synthetic fixtures and aggregate results.
@@ -44,6 +55,7 @@ The research question is whether physiological and prosodic cues improve turn ti
 - If real Kenny/Daley/human data is collected later, keep it in ignored local folders and document consent + retention first.
 
 See [docs/privacy.md](docs/privacy.md).
+See [docs/research-plan.md](docs/research-plan.md) for the benchmark, one-month pilot, and hardware path.
 
 ## Current Shape
 

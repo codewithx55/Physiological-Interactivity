@@ -15,6 +15,8 @@ The current simulator data is synthetic. It includes invented speech tokens, bre
 - EMG streams
 - Device identifiers and BLE logs
 - Personal notes, grant admin details, or private screenshots
+- Private call notes, relationship details, health/drug references, legal/financial speculation, or private company speculation
+- Claims that imply sponsorship, endorsement, or private access from Thinking Machines Lab
 
 ## Working Rule
 
@@ -31,6 +33,10 @@ sensor_exports/
 ```
 
 These paths are ignored by `.gitignore`.
+
+## Public Repo Rule
+
+The public repo should include synthetic examples, aggregate metrics, code, and docs. It should not include private names beyond explicit collaborators, non-consented speech, raw recordings, or claims that the demo is medically meaningful.
 
 ## Live Hardware Checklist
 

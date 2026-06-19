@@ -28,6 +28,10 @@ profiles/
 *.mp4
 *.mov
 *.webm
+*.heic
+*.jpg
+*.jpeg
+*.png
 *.sqlite
 *.sqlite3
 *.db
@@ -43,6 +47,7 @@ dist/
 out/
 reports/
 screenshots/private/
+private_screenshots/
 
 # Python
 __pycache__/
