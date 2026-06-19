@@ -56,6 +56,7 @@ In grant language: this is **physiology-aware turn-taking for real-time human-AI
 
 See [docs/privacy.md](docs/privacy.md).
 See [docs/research-plan.md](docs/research-plan.md) for the benchmark, one-month pilot, and hardware path.
+See [docs/grant-relevant-ideas.md](docs/grant-relevant-ideas.md) for the sanitized call-derived grant notes.
 
 ## Current Shape
 

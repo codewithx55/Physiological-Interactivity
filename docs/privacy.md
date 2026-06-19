@@ -38,6 +38,8 @@ These paths are ignored by `.gitignore`.
 
 The public repo should include synthetic examples, aggregate metrics, code, and docs. It should not include private names beyond explicit collaborators, non-consented speech, raw recordings, or claims that the demo is medically meaningful.
 
+Sanitized, grant-relevant notes can be committed when they remove private personal details and are clearly used as research framing. Raw call transcripts stay ignored.
+
 ## Live Hardware Checklist
 
 Before adding live Vernier, Callibri, or heart-rate data:
