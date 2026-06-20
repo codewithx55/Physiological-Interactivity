@@ -1,0 +1,15 @@
+{
+  "source_file": "/Users/codex/Documents/live test.gambl",
+  "session_id": "daley_vernier_001",
+  "time_column_id": 130,
+  "force_column_id": 131,
+  "start_time_s": 1781931849.0,
+  "alignment_start_timestamp_ms": 1781932206952,
+  "alignment_source": "data/daley_vernier_001.markers.jsonl",
+  "events_mode": "a",
+  "sample_count": 18,
+  "first_timestamp_ms": 1781932206952,
+  "last_timestamp_ms": 1781932208652,
+  "event_path": "/Users/codex/Documents/Physiological-Interactivity/data/daley_vernier_001.events.jsonl",
+  "csv_path": "/Users/codex/Documents/Physiological-Interactivity/data/daley_vernier_001.vernier_force.csv"
+}

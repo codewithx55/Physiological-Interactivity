@@ -1,0 +1,20 @@
+{
+  "session_id": "daley_vernier_001",
+  "status": "stopped",
+  "session_started_at_ms": 1781932206952,
+  "notes": "",
+  "paths": {
+    "events": "/Users/codex/Documents/Physiological-Interactivity/data/daley_vernier_001.events.jsonl",
+    "transcript": "/Users/codex/Documents/Physiological-Interactivity/data/daley_vernier_001.transcript.jsonl",
+    "markers": "/Users/codex/Documents/Physiological-Interactivity/data/daley_vernier_001.markers.jsonl",
+    "manifest": "/Users/codex/Documents/Physiological-Interactivity/data/daley_vernier_001.manifest.json",
+    "audio": "/Users/codex/Documents/Physiological-Interactivity/data/daley_vernier_001.audio.wav"
+  },
+  "audio": {
+    "enabled": true,
+    "device": "0",
+    "sample_rate_hz": 48000
+  },
+  "privacy": "Local private capture. Do not commit raw audio, transcripts, biometrics, .gambl, CSV, JSONL, or exports.",
+  "session_stopped_at_ms": 1781932319228
+}
