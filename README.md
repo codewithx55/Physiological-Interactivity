@@ -2,6 +2,68 @@
 
 🫀 Frequency demo handoff.
 
+Kenny direct data bundle: [exports/daley_vernier_001/README.md](exports/daley_vernier_001/README.md) and [exports/daley_vernier_001/daley_vernier_001.kenny_replay.html](exports/daley_vernier_001/daley_vernier_001.kenny_replay.html).
+
+## Final Vernier + Voice Demo
+
+Use this when Daley has Vernier Graphical Analysis open and wants a clean Kenny handoff with audio, transcript, force, and timestamps.
+
+```bash
+cd /Users/codex/Documents/Physiological-Interactivity
+python3 -m pip install -r requirements.txt
+python3 -m src.app \
+  --mode simulator \
+  --final-demo \
+  --session-id daley_vernier_001 \
+  --with-audio \
+  --audio-device 0
+```
+
+Open:
+
+```txt
+http://127.0.0.1:8787/final-demo.html
+```
+
+Demo flow:
+
+1. Click `Start Session` on the web page.
+2. Start recording in Vernier Graphical Analysis.
+3. Click `Mark Vernier Start`.
+4. Speak normally while Graphical Analysis records the belt.
+5. Click `Mark Vernier Stop`, then `Stop Session`.
+6. Export the Vernier file from Graphical Analysis as `.gambl`.
+
+Then align and bundle:
+
+```bash
+python3 tools/import_gambl.py /path/to/session.gambl \
+  --session-id daley_vernier_001 \
+  --markers data/daley_vernier_001.markers.jsonl
+
+python3 tools/export_session_bundle.py --session-id daley_vernier_001
+```
+
+Kenny starts with:
+
+```txt
+exports/daley_vernier_001/README.md
+exports/daley_vernier_001/manifest.json
+exports/daley_vernier_001/daley_vernier_001.merged_timeline.csv
+```
+
+Local private outputs:
+
+```txt
+data/daley_vernier_001.audio.wav
+data/daley_vernier_001.transcript.jsonl
+data/daley_vernier_001.markers.jsonl
+data/daley_vernier_001.vernier_force.csv
+exports/daley_vernier_001/
+```
+
+All rows are timestamped. Vernier force uses the same rule everywhere: force rising means `inhale`; force falling means `exhale`.
+
 ## Kenny Live Data Stream
 
 Fastest local stream for Kenny:
@@ -48,7 +110,47 @@ Open:
 http://127.0.0.1:8787/breath.html
 ```
 
-Two-step calibration flow on that page:
+Kenny Vernier-style inhale/exhale graph screen:
+
+```bash
+python3 -m src.app --mode simulator --vernier-breath --port 8788
+```
+
+Open:
+
+```txt
+http://127.0.0.1:8788/vernier.html
+```
+
+This is a new page, separate from `breath.html`. It clones the Vernier Graphical Analysis layout around the Go Direct Force signal in Newtons. Inhale/exhale is derived from slope: force going up means inhale, force going down means exhale. If no live Vernier stream is available, it uses a Vernier-shaped force trace so Kenny can still see the full behavior.
+
+To feed the page from the Vernier Go Direct Respiration Belt:
+
+```bash
+bash tools/setup_vernier_env.sh
+. .venv-vernier/bin/activate
+python tools/vernier_stream.py --transport ble
+```
+
+Keep Vernier Graphical Analysis disconnected while Python owns BLE/USB. The page reads only the latest local force state from `build/vernier-live.json`; it does not save raw breath recordings.
+
+Import a saved Vernier Graphical Analysis `.gambl` file:
+
+```bash
+python3 tools/import_gambl.py vernierp1test.gambl --session-id vernierp1test
+```
+
+The importer reads the `.gambl` bundle, extracts the Graphical Analysis Time and Force columns, and writes timestamped local files:
+
+```txt
+data/vernierp1test.events.jsonl
+data/vernierp1test.vernier_force.csv
+data/vernierp1test.gambl-summary.json
+```
+
+Each force event has `timestamp_ms`, `relative_time_s`, `value` in Newtons, and `breath_phase`. Those timestamps can be aligned with transcript events from the same session. `.gambl` files are treated as private biometric captures and ignored by git.
+
+Two-step calibration flow on `breath.html`:
 
 1. Click `Start calibration`.
 2. For 30 seconds, press `I` while actually inhaling and `E` while actually exhaling.

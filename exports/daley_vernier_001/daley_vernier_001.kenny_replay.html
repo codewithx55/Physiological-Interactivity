@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kenny Breath + Word Replay</title>
+  <style>
+    :root { --ink:#151817; --muted:#66716c; --line:#d8ded9; --paper:#f6f7f3; --panel:#fff; --green:#217a57; --red:#b64b47; --gold:#a7741f; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0; }
+    main { width: min(1200px, calc(100vw - 32px)); margin: 16px auto; display: grid; gap: 12px; }
+    section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
+    h1 { margin: 0; font-size: 24px; }
+    h2 { margin: 0 0 10px; font-size: 16px; }
+    .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .metric { border: 1px solid var(--line); border-radius: 8px; padding: 10px; }
+    .label { color: var(--muted); font-size: 12px; font-weight: 800; text-transform: uppercase; }
+    .value { margin-top: 6px; font-size: 22px; font-weight: 850; }
+    .warning { border-color: #e3c36b; background: #fff7df; }
+    canvas { width: 100%; height: 260px; border: 1px solid var(--line); border-radius: 8px; background: #fbfcfa; display: block; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { border-bottom: 1px solid var(--line); padding: 8px; text-align: left; vertical-align: top; }
+    th { color: var(--muted); font-size: 11px; text-transform: uppercase; }
+    .no { color: var(--red); font-weight: 800; }
+    .yes { color: var(--green); font-weight: 800; }
+    .phase { font-weight: 800; }
+    @media (max-width: 900px) { .summary { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+<main>
+  <section>
+    <h1>Kenny Breath + Word Replay</h1>
+    <p id="subtitle"></p>
+  </section>
+  <section class="summary">
+    <div class="metric"><div class="label">Force Samples</div><div class="value" id="forceCount"></div></div>
+    <div class="metric"><div class="label">Force Duration</div><div class="value" id="forceDuration"></div></div>
+    <div class="metric"><div class="label">Transcript Events</div><div class="value" id="transcriptCount"></div></div>
+    <div class="metric warning"><div class="label">Pairing Result</div><div class="value" id="pairingResult"></div></div>
+  </section>
+  <section>
+    <h2>Force Trace + Transcript Timing</h2>
+    <canvas id="chart" width="1160" height="260"></canvas>
+  </section>
+  <section>
+    <h2>Breath/Word Pairing Table</h2>
+    <table>
+      <thead><tr><th>Speech Time</th><th>Transcript Event</th><th>Nearest Breath</th><th>Delta</th><th>Status</th></tr></thead>
+      <tbody id="pairs"></tbody>
+    </table>
+  </section>
+</main>
+<script>
+const data = {"session_id": "daley_vernier_001", "session_start_ms": 1781932206952, "force_rows": [{"timestamp_ms": 1781932206952, "time_s": 0.0, "force_n": 15.027229, "breath_phase": "hold"}, {"timestamp_ms": 1781932207052, "time_s": 0.1, "force_n": 14.77684, "breath_phase": "exhale"}, {"timestamp_ms": 1781932207152, "time_s": 0.2, "force_n": 14.069107, "breath_phase": "exhale"}, {"timestamp_ms": 1781932207252, "time_s": 0.3, "force_n": 13.223404, "breath_phase": "exhale"}, {"timestamp_ms": 1781932207352, "time_s": 0.4, "force_n": 12.462013, "breath_phase": "exhale"}, {"timestamp_ms": 1781932207452, "time_s": 0.5, "force_n": 11.695511, "breath_phase": "exhale"}, {"timestamp_ms": 1781932207552, "time_s": 0.6, "force_n": 11.059319, "breath_phase": "exhale"}, {"timestamp_ms": 1781932207652, "time_s": 0.7, "force_n": 10.581528, "breath_phase": "exhale"}, {"timestamp_ms": 1781932207752, "time_s": 0.8, "force_n": 10.103745, "breath_phase": "exhale"}, {"timestamp_ms": 1781932207852, "time_s": 0.9, "force_n": 9.661728, "breath_phase": "exhale"}, {"timestamp_ms": 1781932207952, "time_s": 1.0, "force_n": 9.309143, "breath_phase": "exhale"}, {"timestamp_ms": 1781932208052, "time_s": 1.1, "force_n": 8.938667, "breath_phase": "exhale"}, {"timestamp_ms": 1781932208152, "time_s": 1.2, "force_n": 8.550308, "breath_phase": "exhale"}, {"timestamp_ms": 1781932208252, "time_s": 1.3, "force_n": 8.317802, "breath_phase": "exhale"}, {"timestamp_ms": 1781932208352, "time_s": 1.4, "force_n": 8.174721, "breath_phase": "exhale"}, {"timestamp_ms": 1781932208452, "time_s": 1.5, "force_n": 8.018867, "breath_phase": "exhale"}, {"timestamp_ms": 1781932208552, "time_s": 1.6, "force_n": 7.87323, "breath_phase": "exhale"}, {"timestamp_ms": 1781932208652, "time_s": 1.7, "force_n": 7.78125, "breath_phase": "exhale"}], "transcript_rows": [{"type": "transcript", "session_id": "daley_vernier_001", "timestamp_ms": 1781932219378, "speaker": "daley", "text": "it's just better because the bottle is better Gemini is just really bad joke", "is_final": true, "confidence": 0.9189320206642151, "source": "browser_speech_recognition"}, {"type": "transcript", "session_id": "daley_vernier_001", "timestamp_ms": 1781932227772, "speaker": "daley", "text": "yeah Gemini is pretty bad I think this is actually collecting data for the breath thing now so", "is_final": true, "confidence": 0.9575111865997314, "source": "browser_speech_recognition"}, {"type": "transcript", "session_id": "daley_vernier_001", "timestamp_ms": 1781932234565, "speaker": "daley", "text": "feel free to have natural conversation with me Kenny and it will have turn-based detection", "is_final": true, "confidence": 0.955717921257019, "source": "browser_speech_recognition"}, {"type": "transcript", "session_id": "daley_vernier_001", "timestamp_ms": 1781932250881, "speaker": "daley", "text": "it's pretty good actually", "is_final": true, "confidence": 0.9721954464912415, "source": "browser_speech_recognition"}, {"type": "transcript", "session_id": "daley_vernier_001", "timestamp_ms": 1781932266330, "speaker": "daley", "text": "it was June 10th today so there was no work today but I still went into office because there's a gym and I checked out the gym for the first time and it was immaculate yeah well I mean I think it was because of the holiday but it was basically just like a giant like regular gym", "is_final": true, "confidence": 0.9633468389511108, "source": "browser_speech_recognition"}, {"type": "transcript", "session_id": "daley_vernier_001", "timestamp_ms": 1781932275521, "speaker": "daley", "text": "but all to myself I was the only one there so it was like just blast music and like set up like the mats and did box jump so it was a pretty good time", "is_final": true, "confidence": 0.959505558013916, "source": "browser_speech_recognition"}, {"type": "transcript", "session_id": "daley_vernier_001", "timestamp_ms": 1781932285638, "speaker": "daley", "text": "yeah yeah absolutely supporting Juneteenth", "is_final": true, "confidence": 0.9567092657089233, "source": "browser_speech_recognition"}, {"type": "transcript", "session_id": "daley_vernier_001", "timestamp_ms": 1781932294926, "speaker": "daley", "text": "and yeah just excited excited to be submitting this thinking machines lab grant interactivity grant and I've been super passionate about interactivity really for the past", "is_final": true, "confidence": 0.9599379897117615, "source": "browser_speech_recognition"}, {"type": "transcript", "session_id": "daley_vernier_001", "timestamp_ms": 1781932301687, "speaker": "daley", "text": "you know 15 years of my life and I know you feel the same so I'm really really glad that we were doing this together", "is_final": true, "confidence": 0.9512279033660889, "source": "browser_speech_recognition"}, {"type": "transcript", "session_id": "daley_vernier_001", "timestamp_ms": 1781932318145, "speaker": "daley", "text": "yeah for sure this is going straight together I'm going to go ahead and stop and just wraps up the demo thank you all I've run for a participating", "is_final": true, "confidence": 0.9521214962005615, "source": "browser_speech_recognition"}], "marker_rows": [{"type": "session_marker", "session_id": "daley_vernier_001", "timestamp_ms": 1781932206952, "label": "session_start", "notes": "", "source": "final_demo_page"}, {"type": "session_marker", "session_id": "daley_vernier_001", "timestamp_ms": 1781932319228, "label": "session_stop", "notes": "", "source": "final_demo_page"}], "pairing_csv": "daley_vernier_001.breath_word_pairing.csv", "force_duration_s": 1.7, "first_transcript_after_force_s": 10.726};
+const start = data.session_start_ms || Math.min(...data.force_rows.map(r => r.timestamp_ms), ...data.transcript_rows.map(r => r.timestamp_ms));
+document.querySelector("#subtitle").textContent = `Session ${data.session_id}. Pairing CSV: ${data.pairing_csv}`;
+document.querySelector("#forceCount").textContent = data.force_rows.length;
+document.querySelector("#forceDuration").textContent = data.force_duration_s + "s";
+document.querySelector("#transcriptCount").textContent = data.transcript_rows.length;
+document.querySelector("#pairingResult").textContent = data.first_transcript_after_force_s === null ? "No data" : `Speech starts ${data.first_transcript_after_force_s}s after force ends`;
+
+const c = document.querySelector("#chart");
+const ctx = c.getContext("2d");
+const allTimes = [...data.force_rows.map(r => rel(r.timestamp_ms)), ...data.transcript_rows.map(r => rel(r.timestamp_ms))];
+const maxT = Math.max(2, ...allTimes);
+const forces = data.force_rows.map(r => r.force_n).filter(Number.isFinite);
+const minF = Math.min(...forces);
+const maxF = Math.max(...forces);
+function rel(ms) { return (ms - start) / 1000; }
+function x(t) { return 50 + (t / maxT) * (c.width - 80); }
+function y(v) { return 210 - ((v - minF) / Math.max(0.001, maxF - minF)) * 150; }
+ctx.clearRect(0,0,c.width,c.height);
+ctx.strokeStyle = "#d8ded9"; ctx.lineWidth = 1;
+for (let i=0; i<=5; i++) { const xx=x(maxT*i/5); ctx.beginPath(); ctx.moveTo(xx,20); ctx.lineTo(xx,220); ctx.stroke(); ctx.fillStyle="#66716c"; ctx.fillText((maxT*i/5).toFixed(1)+"s", xx-12, 240); }
+ctx.strokeStyle = "#217a57"; ctx.lineWidth = 4; ctx.beginPath();
+data.force_rows.forEach((r,i) => { const xx=x(rel(r.timestamp_ms)); const yy=y(r.force_n); if(i===0) ctx.moveTo(xx,yy); else ctx.lineTo(xx,yy); });
+ctx.stroke();
+data.transcript_rows.forEach((r, i) => { const xx=x(rel(r.timestamp_ms)); ctx.strokeStyle="#b64b47"; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(xx,22); ctx.lineTo(xx,218); ctx.stroke(); ctx.fillStyle="#b64b47"; ctx.fillText("T"+(i+1), xx+3, 34 + (i%4)*16); });
+
+const tbody = document.querySelector("#pairs");
+function nearest(ts) { if (!data.force_rows.length) return null; return data.force_rows.reduce((best,r) => Math.abs(r.timestamp_ms-ts) < Math.abs(best.timestamp_ms-ts) ? r : best, data.force_rows[0]); }
+data.transcript_rows.forEach((t, i) => {
+  const n = nearest(t.timestamp_ms);
+  const delta = n ? t.timestamp_ms - n.timestamp_ms : null;
+  const paired = delta !== null && Math.abs(delta) <= 500;
+  const tr = document.createElement("tr");
+  tr.innerHTML = `<td>${rel(t.timestamp_ms).toFixed(3)}s</td><td><strong>T${i+1}</strong>: ${escapeHtml(t.text || "")}</td><td>${n ? rel(n.timestamp_ms).toFixed(3)+"s, "+Number(n.force_n).toFixed(3)+" N, <span class='phase'>"+n.breath_phase+"</span>" : ""}</td><td>${delta === null ? "" : delta+" ms"}</td><td class="${paired ? "yes" : "no"}">${paired ? "paired" : "no overlap"}</td>`;
+  tbody.appendChild(tr);
+});
+function escapeHtml(s) { return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+</script>
+</body>
+</html>

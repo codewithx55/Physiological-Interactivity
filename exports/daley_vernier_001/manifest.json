@@ -1,0 +1,62 @@
+{
+  "session_id": "daley_vernier_001",
+  "bundle_dir": "/Users/codex/Documents/Physiological-Interactivity/exports/daley_vernier_001",
+  "created_files": {
+    "events_jsonl": "/Users/codex/Documents/Physiological-Interactivity/exports/daley_vernier_001/daley_vernier_001.events.jsonl",
+    "transcript_jsonl": "/Users/codex/Documents/Physiological-Interactivity/exports/daley_vernier_001/daley_vernier_001.transcript.jsonl",
+    "markers_jsonl": "/Users/codex/Documents/Physiological-Interactivity/exports/daley_vernier_001/daley_vernier_001.markers.jsonl",
+    "audio_wav": "/Users/codex/Documents/Physiological-Interactivity/exports/daley_vernier_001/daley_vernier_001.audio.wav",
+    "vernier_force_csv": "/Users/codex/Documents/Physiological-Interactivity/exports/daley_vernier_001/daley_vernier_001.vernier_force.csv",
+    "gambl_summary_json": "/Users/codex/Documents/Physiological-Interactivity/exports/daley_vernier_001/daley_vernier_001.gambl-summary.json",
+    "session_manifest_json": "/Users/codex/Documents/Physiological-Interactivity/exports/daley_vernier_001/daley_vernier_001.manifest.json",
+    "source_gambl": "/Users/codex/Documents/Physiological-Interactivity/exports/daley_vernier_001/live test.gambl"
+  },
+  "derived_files": {
+    "transcript_csv": "/Users/codex/Documents/Physiological-Interactivity/exports/daley_vernier_001/daley_vernier_001.transcript.csv",
+    "merged_timeline_csv": "/Users/codex/Documents/Physiological-Interactivity/exports/daley_vernier_001/daley_vernier_001.merged_timeline.csv",
+    "breath_word_pairing_csv": "/Users/codex/Documents/Physiological-Interactivity/exports/daley_vernier_001/daley_vernier_001.breath_word_pairing.csv",
+    "kenny_replay_html": "/Users/codex/Documents/Physiological-Interactivity/exports/daley_vernier_001/daley_vernier_001.kenny_replay.html"
+  },
+  "counts": {
+    "markers": 2,
+    "transcript_events": 10,
+    "vernier_force_samples": 18
+  },
+  "privacy": "Private local research capture. Do not commit or share without consent.",
+  "next_step": "Open the merged timeline CSV first; use WAV, transcript JSONL, and force CSV for detailed review.",
+  "session_manifest": {
+    "session_id": "daley_vernier_001",
+    "status": "stopped",
+    "session_started_at_ms": 1781932206952,
+    "notes": "",
+    "paths": {
+      "events": "/Users/codex/Documents/Physiological-Interactivity/data/daley_vernier_001.events.jsonl",
+      "transcript": "/Users/codex/Documents/Physiological-Interactivity/data/daley_vernier_001.transcript.jsonl",
+      "markers": "/Users/codex/Documents/Physiological-Interactivity/data/daley_vernier_001.markers.jsonl",
+      "manifest": "/Users/codex/Documents/Physiological-Interactivity/data/daley_vernier_001.manifest.json",
+      "audio": "/Users/codex/Documents/Physiological-Interactivity/data/daley_vernier_001.audio.wav"
+    },
+    "audio": {
+      "enabled": true,
+      "device": "0",
+      "sample_rate_hz": 48000
+    },
+    "privacy": "Local private capture. Do not commit raw audio, transcripts, biometrics, .gambl, CSV, JSONL, or exports.",
+    "session_stopped_at_ms": 1781932319228
+  },
+  "gambl_summary": {
+    "source_file": "/Users/codex/Documents/live test.gambl",
+    "session_id": "daley_vernier_001",
+    "time_column_id": 130,
+    "force_column_id": 131,
+    "start_time_s": 1781931849.0,
+    "alignment_start_timestamp_ms": 1781932206952,
+    "alignment_source": "data/daley_vernier_001.markers.jsonl",
+    "events_mode": "a",
+    "sample_count": 18,
+    "first_timestamp_ms": 1781932206952,
+    "last_timestamp_ms": 1781932208652,
+    "event_path": "/Users/codex/Documents/Physiological-Interactivity/data/daley_vernier_001.events.jsonl",
+    "csv_path": "/Users/codex/Documents/Physiological-Interactivity/data/daley_vernier_001.vernier_force.csv"
+  }
+}

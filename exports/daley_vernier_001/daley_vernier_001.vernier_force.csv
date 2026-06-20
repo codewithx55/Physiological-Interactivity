@@ -1,0 +1,19 @@
+timestamp_ms,time_s,force_n,breath_phase,source_file
+1781932206952,0.0,15.027229,hold,/Users/codex/Documents/live test.gambl
+1781932207052,0.1,14.77684,exhale,/Users/codex/Documents/live test.gambl
+1781932207152,0.2,14.069107,exhale,/Users/codex/Documents/live test.gambl
+1781932207252,0.3,13.223404,exhale,/Users/codex/Documents/live test.gambl
+1781932207352,0.4,12.462013,exhale,/Users/codex/Documents/live test.gambl
+1781932207452,0.5,11.695511,exhale,/Users/codex/Documents/live test.gambl
+1781932207552,0.6,11.059319,exhale,/Users/codex/Documents/live test.gambl
+1781932207652,0.7,10.581528,exhale,/Users/codex/Documents/live test.gambl
+1781932207752,0.8,10.103745,exhale,/Users/codex/Documents/live test.gambl
+1781932207852,0.9,9.661728,exhale,/Users/codex/Documents/live test.gambl
+1781932207952,1.0,9.309143,exhale,/Users/codex/Documents/live test.gambl
+1781932208052,1.1,8.938667,exhale,/Users/codex/Documents/live test.gambl
+1781932208152,1.2,8.550308,exhale,/Users/codex/Documents/live test.gambl
+1781932208252,1.3,8.317802,exhale,/Users/codex/Documents/live test.gambl
+1781932208352,1.4,8.174721,exhale,/Users/codex/Documents/live test.gambl
+1781932208452,1.5,8.018867,exhale,/Users/codex/Documents/live test.gambl
+1781932208552,1.6,7.87323,exhale,/Users/codex/Documents/live test.gambl
+1781932208652,1.7,7.78125,exhale,/Users/codex/Documents/live test.gambl
