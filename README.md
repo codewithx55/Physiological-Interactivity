@@ -30,7 +30,3 @@ Open:
 ```txt
 http://127.0.0.1:8787/film.html
 ```
-
-## Next
-
-Write the proposal and budget, then collect one consented Vernier-aligned real speaker trace.
