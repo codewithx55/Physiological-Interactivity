@@ -32,12 +32,14 @@ profiles/
 *.jpg
 *.jpeg
 *.png
+!docs/assets/*.png
 *.sqlite
 *.sqlite3
 *.db
 *.csv
 *.tsv
 *.jsonl
+*.gambl
 transcript*.md
 recording*.*
 

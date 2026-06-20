@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import math
 import statistics
 import sys
 import time
@@ -56,11 +55,9 @@ def main() -> int:
         for row in sensor_rows:
             print(f"  {row}")
 
-        force_sensor, rate_sensor = _select_respiration_sensors(sensor_rows)
+        force_sensor = _select_force_sensor(sensor_rows)
         sensors = [force_sensor]
-        if rate_sensor is not None:
-            sensors.append(rate_sensor)
-        print(f"Using sensor numbers: {sensors}")
+        print(f"Using force sensor number: {force_sensor}")
 
         if args.list:
             return 0
@@ -68,7 +65,7 @@ def main() -> int:
         args.out.parent.mkdir(parents=True, exist_ok=True)
         stream.select_sensors(sensors)
         stream.start(period=args.period_ms)
-        _stream_samples(stream, args.out, args.seconds, bool(rate_sensor))
+        _stream_force_samples(stream, args.out, args.seconds)
         return 0
     except KeyboardInterrupt:
         print("\nStopped.")
@@ -84,9 +81,8 @@ def main() -> int:
             pass
 
 
-def _select_respiration_sensors(sensor_rows: list[list[Any]]) -> tuple[int, int | None]:
+def _select_force_sensor(sensor_rows: list[list[Any]]) -> int:
     force: int | None = None
-    rate: int | None = None
     for row in sensor_rows:
         if len(row) < 3:
             continue
@@ -94,38 +90,39 @@ def _select_respiration_sensors(sensor_rows: list[list[Any]]) -> tuple[int, int 
         label = f"{row[1]} {row[2]}".lower()
         if force is None and ("force" in label or "(n" in label):
             force = number
-        if rate is None and "respiration" in label and ("bpm" in label or "rate" in label):
-            rate = number
     if force is None and sensor_rows:
         force = int(sensor_rows[0][0])
     if force is None:
         raise RuntimeError("No readable sensor channels found.")
-    return force, rate
+    return force
 
 
-def _stream_samples(stream: Any, output_path: Path, seconds: float, has_rate: bool) -> None:
+def _stream_force_samples(stream: Any, output_path: Path, seconds: float) -> None:
     started = time.monotonic()
-    recent = deque(maxlen=40)
+    recent = deque(maxlen=18)
+    graph_samples = deque(maxlen=1300)
     last_phase = "hold"
-    print(f"Writing live breath state to {output_path}")
+    print(f"Writing live Vernier force state to {output_path}")
     while seconds <= 0 or time.monotonic() - started < seconds:
         values = stream.read()
         if not values:
             continue
 
+        at_ms = int((time.monotonic() - started) * 1000)
         force = float(values[0])
-        rate = float(values[1]) if has_rate and len(values) > 1 else 0.0
         recent.append(force)
+        graph_samples.append({"at_ms": at_ms, "force_n": round(force, 3)})
         phase = _phase_from_recent(recent, last_phase)
         last_phase = phase
 
         payload = {
             "source": "vernier_live",
-            "at_ms": int((time.monotonic() - started) * 1000),
+            "at_ms": at_ms,
             "force_n": round(force, 3),
-            "breath_rate_bpm": round(rate, 2) if math.isfinite(rate) else 0,
             "breath_phase": phase,
+            "phase_rule": "force rising = inhale; force falling = exhale",
             "sample_count": len(recent),
+            "recent_samples": list(graph_samples),
             "updated_at": time.time(),
         }
         output_path.write_text(json.dumps(payload), encoding="utf-8")
@@ -133,14 +130,14 @@ def _stream_samples(stream: Any, output_path: Path, seconds: float, has_rate: bo
 
 
 def _phase_from_recent(recent: deque[float], previous: str) -> str:
-    if len(recent) < 8:
+    if len(recent) < 6:
         return "hold"
-    first = statistics.mean(list(recent)[:4])
-    last = statistics.mean(list(recent)[-4:])
+    first = statistics.mean(list(recent)[:3])
+    last = statistics.mean(list(recent)[-3:])
     delta = last - first
-    if delta > 0.55:
+    if delta > 0.35:
         return "inhale"
-    if delta < -0.55:
+    if delta < -0.35:
         return "exhale"
     return previous if previous in {"inhale", "exhale"} else "hold"
 
