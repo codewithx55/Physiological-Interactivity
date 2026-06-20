@@ -1,0 +1,5 @@
+godirect==1.2.1
+pyobjc-core<12
+pyobjc-framework-Cocoa<12
+pyobjc-framework-CoreBluetooth<12
+pyobjc-framework-libdispatch<12
